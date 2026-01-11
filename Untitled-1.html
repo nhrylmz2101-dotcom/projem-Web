@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Web Projem</title>
+<style>
+/* Temel Stil ve Arka Plan Animasyonu */
+body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    line-height:1.6;
+    color:#333;
+
+    background: linear-gradient(-45deg, #1e3c72, #2a5298, #6a11cb, #2575fc);
+    background-size: 400% 400%;
+    animation: renkDegistir 20s ease infinite;
+}
+
+@keyframes renkDegistir {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+}
+
+/* Header ve Menü */
+header { background-color: darkblue; padding: 10px 0; }
+nav { text-align:center; }
+nav ul { list-style:none; margin:0; padding:0; display:inline-block; }
+nav ul li { display:inline-block; position:relative; }
+nav ul li a { color:white; padding:5px 12px; text-decoration:none; display:inline-block; cursor:pointer; }
+nav ul li a:hover { background-color:yellow; color:darkblue; border-radius:4px; }
+
+nav ul li ul { display:none; position:absolute; top:100%; left:0; background-color:darkblue; padding:0; min-width:150px; }
+nav ul li:hover ul { display:block; }
+nav ul li ul li a { display:block; margin:0; padding:5px 10px; }
+
+/* Başlık ve Paragraf */
+h1 { text-align:center; margin-top:30px; font-size:28px; }
+p { text-align:center; margin:15px auto; max-width:600px; }
+
+/* Butonlar */
+.button-container { text-align:center; margin-top:20px; }
+.button-container button { margin:5px; padding:10px 20px; cursor:pointer; border-radius:5px; border:1px solid #333; background-color:white; transition:0.2s; }
+.button-container button:hover { background-color:darkblue; color:white; }
+
+/* Form */
+.form-container { max-width:400px; margin:30px auto; padding:20px; border:1px solid #ccc; border-radius:5px; background-color:white; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+.form-container input, .form-container textarea { width:100%; padding:10px; margin:10px 0; border:1px solid #ccc; border-radius:4px; }
+.form-container button { width:100%; padding:10px; margin-top:10px; background-color:darkblue; color:white; border:none; border-radius:5px; cursor:pointer; }
+.form-container button:hover { background-color:#1E90FF; }
+
+/* Özet Kutusu */
+.ozet { max-width:600px; margin:20px auto; padding:15px; background-color:#e0f7fa; border-radius:5px; text-align:center; box-shadow:0 1px 5px rgba(0,0,0,0.1); }
+
+/* Google Maps */
+iframe { display:block; margin:20px auto; border:0; border-radius:5px; }
+
+/* Footer */
+footer { background-color: darkblue; color:white; text-align:center; padding:20px; margin-top:20px; font-size:14px; }
+footer a { color:white; margin:0 10px; text-decoration:none; }
+footer a:hover { color:yellow; }
+
+/* Responsive Tasarım */
+@media screen and (max-width: 768px) {
+    nav ul li { display:block; text-align:center; margin:5px 0; }
+    nav ul li ul { position: static; }
+    .form-container { width: 90%; margin: 20px auto; }
+    iframe { width: 95%; height: 250px; }
+    .button-container button { width: 90%; margin: 5px auto; display:block; }
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+<ul>
+<li><a onclick="sayfaDegistir('anasayfa')">Ana Sayfa</a></li>
+<li><a>Hakkımızda</a>
+    <ul>
+        <li><a onclick="sayfaDegistir('ekip')">Ekibimiz</a></li>
+        <li><a onclick="sayfaDegistir('misyon')">Misyon</a></li>
+    </ul>
+</li>
+<li><a>İletişim</a>
+    <ul>
+        <li><a onclick="sayfaDegistir('iletisim')">Form</a></li>
+        <li><a onclick="sayfaDegistir('adres')">Adres</a></li>
+    </ul>
+</li>
+</ul>
+</nav>
+</header>
+
+<!-- Ana Sayfa -->
+<div id="icerikAlan">
+<h1 id="baslik">Hoş Geldiniz!</h1>
+<p id="paragraf">Web projemize başlıyoruz.</p>
+
+<div class="ozet">
+<strong>Proje Özeti:</strong> Bu web sitesi, bir tanıtım ve geri bildirim platformu olarak tasarlanmıştır. Kullanıcılar projeyi tanıyabilir, iletişim kurabilir ve web tasarım örneklerini görebilir.
+</div>
+
+<div id="butonlar" class="button-container">
+<button title="Proje kullanıcıya web tasarım ve interaktif deneyim sunar." onclick="icerikDegistir(1)">Proje Amacı</button>
+<button title="Kullanıcı projeyi tanıyabilir ve içerikleri görebilir." onclick="icerikDegistir(2)">Kullanım Alanı</button>
+<button title="HTML, CSS ve JS kullanıldı, VS Code ile hazırlandı." onclick="icerikDegistir(3)">Teknolojiler</button>
+</div>
+</div>
+
+<!-- İletişim Formu -->
+<div id="formAlan" class="form-container" style="display:none;">
+<h2>İletişim Formu</h2>
+<form id="iletisimForm">
+<input type="text" id="isim" placeholder="Adınız" required>
+<input type="email" id="email" placeholder="E-posta" required>
+<textarea id="mesaj" placeholder="Mesajınız" rows="5" required></textarea>
+<button type="submit">Gönder</button>
+</form>
+<p id="sonuc"></p>
+</div>
+
+<!-- Footer -->
+<footer>
+<p>© 2026 Web Projem. Tüm hakları saklıdır.</p>
+<p>İletişim: info@webprojem.com | Tel: 551 070 63 11</p>
+<div>
+    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank">Twitter</a>
+    <a href="https://www.instagram.com" target="_blank">Instagram</a>
+</div>
+</footer>
+
+<script>
+// Butonlarla içerik değiştirme
+function icerikDegistir(sayi){
+    if(sayi===1){ 
+        document.getElementById("baslik").textContent="Proje Amacı"; 
+        document.getElementById("paragraf").textContent="Bu proje, kullanıcıya web tasarım ve interaktif içerik deneyimi sunmayı amaçlamaktadır."; 
+    }
+    else if(sayi===2){ 
+        document.getElementById("baslik").textContent="Kullanım Alanı"; 
+        document.getElementById("paragraf").textContent="Kullanıcılar projeyi tanıyabilir, iletişim kurabilir ve örnek web tasarım öğelerini görebilir."; 
+    }
+    else if(sayi===3){ 
+        document.getElementById("baslik").textContent="Teknolojiler"; 
+        document.getElementById("paragraf").textContent="HTML, CSS ve JavaScript kullanılarak geliştirilmiştir. Visual Studio Code ile hazırlanmıştır."; 
+    }
+}
+
+// Menü ile sayfa geçişleri
+function sayfaDegistir(sayfa){
+    document.getElementById("icerikAlan").style.display='none';
+    document.getElementById("formAlan").style.display='none';
+
+    if(sayfa==='anasayfa'){
+        document.getElementById("icerikAlan").style.display='block';
+        document.getElementById("baslik").textContent="Hoş Geldiniz!";
+        document.getElementById("paragraf").textContent="Web projemize başlıyoruz.";
+        document.getElementById("butonlar").style.display='block';
+    }
+    else if(sayfa==='ekip'){
+        document.getElementById("icerikAlan").style.display='block';
+        document.getElementById("baslik").textContent="Ekibimiz";
+        document.getElementById("paragraf").textContent="Biz, web tasarım ve geliştirme alanında kendini geliştiren bir ekibiz. Amacımız kullanıcı dostu ve modern web siteleri oluşturmak.";
+        document.getElementById("butonlar").style.display='none';
+    }
+    else if(sayfa==='misyon'){
+        document.getElementById("icerikAlan").style.display='block';
+        document.getElementById("baslik").textContent="Misyonumuz";
+        document.getElementById("paragraf").textContent="Amacımız, kaliteli ve erişilebilir web çözümleri sunmak, kullanıcı deneyimini her zaman ön planda tutmaktır.";
+        document.getElementById("butonlar").style.display='none';
+    }
+    else if(sayfa==='iletisim'){
+        document.getElementById("formAlan").style.display='block';
+    }
+    else if(sayfa==='adres'){
+        document.getElementById("icerikAlan").style.display='block';
+        document.getElementById("baslik").textContent="Adres";
+        document.getElementById("paragraf").textContent="1234 Web Sokak, İstanbul, Türkiye\nTelefon: 551 070 63 11\nE-posta: info@webprojem.com";
+        document.getElementById("butonlar").style.display='none';
+        document.getElementById("icerikAlan").innerHTML += `
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3062.903813366338!2d28.97835831517833!3d41.008237979303955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caba3c8b04d211%3A0xdee9a0f7c173d5e7!2sIstanbul!5e0!3m2!1str!2str!4v1678888888888" width="80%" height="300" allowfullscreen="" loading="lazy"></iframe>
+        `;
+    }
+}
+
+// Form doğrulama ve gönderim
+document.getElementById('iletisimForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const isim = document.getElementById('isim').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const mesaj = document.getElementById('mesaj').value.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!isim || !email || !mesaj){
+        alert("Lütfen tüm alanları doldurun!");
+        return;
+    }
+    if(!emailRegex.test(email)){
+        alert("Lütfen geçerli bir e-posta girin!");
+        return;
+    }
+
+    document.getElementById('sonuc').textContent = "Form başarıyla gönderildi! Teşekkürler, " + isim;
+    document.getElementById('iletisimForm').reset();
+});
+</script>
+
+</body>
+</html>
